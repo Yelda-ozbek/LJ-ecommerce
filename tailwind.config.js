@@ -1,8 +1,13 @@
 // tailwind.config.js
-export default {
+
+module.exports = {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        customGreen: "#2C6B52", // Figma’daki yeşilin hex kodu
+      },
+    },
   },
   plugins: [],
-}
+};
