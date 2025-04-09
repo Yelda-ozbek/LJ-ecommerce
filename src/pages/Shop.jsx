@@ -7,7 +7,7 @@ const products = [
       desc: "English Department",
       price: "$6.48",
       oldPrice: "$16.48",
-      colors: ["#16a34a", "#0ea5e9", "#f97316"],
+      colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
     },
     {
       image: "https://via.placeholder.com/300x400?text=2",
@@ -15,7 +15,7 @@ const products = [
       desc: "English Department",
       price: "$6.48",
       oldPrice: "$16.48",
-      colors: ["#16a34a", "#0ea5e9", "#f97316"],
+      colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
     },
     {
       image: "https://via.placeholder.com/300x400?text=3",
@@ -23,7 +23,7 @@ const products = [
       desc: "English Department",
       price: "$6.48",
       oldPrice: "$16.48",
-      colors: ["#16a34a", "#0ea5e9", "#f97316"],
+      colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
     },
     {
       image: "https://via.placeholder.com/300x400?text=4",
@@ -31,7 +31,7 @@ const products = [
       desc: "English Department",
       price: "$6.48",
       oldPrice: "$16.48",
-      colors: ["#16a34a", "#0ea5e9", "#f97316"],
+      colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
     },
     {
       image: "https://via.placeholder.com/300x400?text=5",
@@ -39,7 +39,7 @@ const products = [
       desc: "English Department",
       price: "$6.48",
       oldPrice: "$16.48",
-      colors: ["#16a34a", "#0ea5e9", "#f97316"],
+      colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
     },
     {
       image: "https://via.placeholder.com/300x400?text=6",
@@ -47,7 +47,7 @@ const products = [
       desc: "English Department",
       price: "$6.48",
       oldPrice: "$16.48",
-      colors: ["#16a34a", "#0ea5e9", "#f97316"],
+      colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
     },
     {
       image: "https://via.placeholder.com/300x400?text=7",
@@ -55,7 +55,7 @@ const products = [
       desc: "English Department",
       price: "$6.48",
       oldPrice: "$16.48",
-      colors: ["#16a34a", "#0ea5e9", "#f97316"],
+      colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
     },
     {
       image: "https://via.placeholder.com/300x400?text=8",
@@ -63,7 +63,7 @@ const products = [
       desc: "English Department",
       price: "$6.48",
       oldPrice: "$16.48",
-      colors: ["#16a34a", "#0ea5e9", "#f97316"],
+      colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
     },
   ];
   
