@@ -56,6 +56,8 @@ const Header = () => {
           <Link to="/blog">Blog</Link>
           <Link to="/contact">Contact</Link>
           <Link to="/pages">Pages</Link>
+          <Link to="/contact">Contact</Link>
+
         </div>
       )}
     </header>

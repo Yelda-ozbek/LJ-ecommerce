@@ -3,6 +3,8 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ProductDetail from "./pages/ProductDetail"; 
 import PageContent from "./layout/PageContent";
+import Contact from "./pages/Contact";
+
 
 // Sayfa bileşenleri
 import HomePage from "./pages/HomePage";
@@ -24,6 +26,7 @@ function App() {
           <Route path="/contact" component={Contact} />
           <Route path="/pages" component={Pages} />
           <Route path="/product/:id" component={ProductDetail} />
+          <Route path="/contact" component={Contact} />
         </Switch>
       </PageContent>
     </Router>
