@@ -1,7 +1,7 @@
 import "keen-slider/keen-slider.min.css";
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
+import ProductDetail from "./pages/ProductDetail"; 
 import PageContent from "./layout/PageContent";
 
 // Sayfa bileşenleri
@@ -23,6 +23,7 @@ function App() {
           <Route path="/blog" component={Blog} />
           <Route path="/contact" component={Contact} />
           <Route path="/pages" component={Pages} />
+          <Route path="/product/:id" component={ProductDetail} />
         </Switch>
       </PageContent>
     </Router>

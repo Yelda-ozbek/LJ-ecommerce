@@ -2,6 +2,7 @@ import ProductCard from "../components/ProductCard.jsx";
 
 const products = [
     {
+        id:1,
       image: "https://via.placeholder.com/300x400",
       title: "Graphic Design",
       desc: "English Department",
@@ -9,7 +10,7 @@ const products = [
       oldPrice: "$16.48",
       colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
     },
-    {
+    { id:2,
       image: "https://via.placeholder.com/300x400?text=2",
       title: "Graphic Design",
       desc: "English Department",
@@ -17,7 +18,7 @@ const products = [
       oldPrice: "$16.48",
       colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
     },
-    {
+    {id:3,
       image: "https://via.placeholder.com/300x400?text=3",
       title: "Graphic Design",
       desc: "English Department",
@@ -25,7 +26,7 @@ const products = [
       oldPrice: "$16.48",
       colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
     },
-    {
+    {id:4,
       image: "https://via.placeholder.com/300x400?text=4",
       title: "Graphic Design",
       desc: "English Department",
@@ -33,7 +34,7 @@ const products = [
       oldPrice: "$16.48",
       colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
     },
-    {
+    {id:5,
       image: "https://via.placeholder.com/300x400?text=5",
       title: "Graphic Design",
       desc: "English Department",
@@ -41,7 +42,7 @@ const products = [
       oldPrice: "$16.48",
       colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
     },
-    {
+    {id:6,
       image: "https://via.placeholder.com/300x400?text=6",
       title: "Graphic Design",
       desc: "English Department",
@@ -49,7 +50,7 @@ const products = [
       oldPrice: "$16.48",
       colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
     },
-    {
+    {id:7,
       image: "https://via.placeholder.com/300x400?text=7",
       title: "Graphic Design",
       desc: "English Department",
@@ -57,7 +58,7 @@ const products = [
       oldPrice: "$16.48",
       colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
     },
-    {
+    {id:8,
       image: "https://via.placeholder.com/300x400?text=8",
       title: "Graphic Design",
       desc: "English Department",

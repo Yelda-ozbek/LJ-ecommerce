@@ -1,5 +1,8 @@
-const ProductCard = ({ image, title, desc, price, oldPrice, colors }) => {
-    return (
+import { Link } from "react-router-dom";
+
+const ProductCard = ({ id, image, title, desc, price, oldPrice, colors }) => {
+  return (
+    <Link to={`/product/${id}`} className="block">
       <div className="border rounded-lg p-4 shadow hover:shadow-md transition">
         <img
           src={image}
@@ -22,8 +25,8 @@ const ProductCard = ({ image, title, desc, price, oldPrice, colors }) => {
           ))}
         </div>
       </div>
-    );
-  };
-  
-  export default ProductCard;
-  
+    </Link>
+  );
+};
+
+export default ProductCard;
