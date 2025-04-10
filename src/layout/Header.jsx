@@ -57,6 +57,7 @@ const Header = () => {
           <Link to="/contact">Contact</Link>
           <Link to="/pages">Pages</Link>
           <Link to="/contact">Contact</Link>
+          <Link to="/team">Team</Link>
 
         </div>
       )}
