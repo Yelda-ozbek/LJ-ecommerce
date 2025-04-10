@@ -14,6 +14,8 @@ import About from "./pages/About";
 import Blog from "./pages/Blog";
 import Contact from "./pages/Contact";
 import Pages from "./pages/Pages";
+import About from "./pages/About";
+
 
 function App() {
   return (
@@ -29,6 +31,9 @@ function App() {
           <Route path="/product/:id" component={ProductDetail} />
           <Route path="/contact" component={Contact} />
           <Route path="/team" component={Team} />
+          <Route path="/about" component={About} />
+
+          
 
         </Switch>
       </PageContent>
