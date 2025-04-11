@@ -35,9 +35,12 @@ const Header = () => {
 
           {/* Desktop Login + Icons */}
           <div className="hidden md:flex items-center gap-4">
-            <button className="text-blue-500 text-sm font-medium hover:underline">
-              Login / Register
-            </button>
+          <Link
+  to="/signup"
+  className="text-blue-500 text-sm font-medium hover:underline"
+>
+  Login / Register
+</Link>
             <div className="flex items-center gap-4 text-blue-500">
               <Search size={20} />
               <ShoppingCart size={20} />
@@ -58,6 +61,8 @@ const Header = () => {
           <Link to="/pages">Pages</Link>
           <Link to="/contact">Contact</Link>
           <Link to="/team">Team</Link>
+          <Link to="/signup">Sign Up</Link>
+
          
 
 

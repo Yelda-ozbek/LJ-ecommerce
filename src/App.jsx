@@ -14,7 +14,7 @@ import About from "./pages/About";
 import Blog from "./pages/Blog";
 import Contact from "./pages/Contact";
 import Pages from "./pages/Pages";
-import About from "./pages/About";
+import Signup from "./pages/Signup";
 
 
 function App() {
@@ -32,6 +32,8 @@ function App() {
           <Route path="/contact" component={Contact} />
           <Route path="/team" component={Team} />
           <Route path="/about" component={About} />
+          <Route path="/signup" component={Signup} />
+
 
           
 
