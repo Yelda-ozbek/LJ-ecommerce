@@ -1,85 +1,62 @@
-import ProductCard from "../components/ProductCard.jsx";
-
-const products = [
-    {
-        id:1,
-      image: "https://via.placeholder.com/300x400",
-      title: "Graphic Design",
-      desc: "English Department",
-      price: "$6.48",
-      oldPrice: "$16.48",
-      colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
-    },
-    { id:2,
-      image: "https://via.placeholder.com/300x400?text=2",
-      title: "Graphic Design",
-      desc: "English Department",
-      price: "$6.48",
-      oldPrice: "$16.48",
-      colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
-    },
-    {id:3,
-      image: "https://via.placeholder.com/300x400?text=3",
-      title: "Graphic Design",
-      desc: "English Department",
-      price: "$6.48",
-      oldPrice: "$16.48",
-      colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
-    },
-    {id:4,
-      image: "https://via.placeholder.com/300x400?text=4",
-      title: "Graphic Design",
-      desc: "English Department",
-      price: "$6.48",
-      oldPrice: "$16.48",
-      colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
-    },
-    {id:5,
-      image: "https://via.placeholder.com/300x400?text=5",
-      title: "Graphic Design",
-      desc: "English Department",
-      price: "$6.48",
-      oldPrice: "$16.48",
-      colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
-    },
-    {id:6,
-      image: "https://via.placeholder.com/300x400?text=6",
-      title: "Graphic Design",
-      desc: "English Department",
-      price: "$6.48",
-      oldPrice: "$16.48",
-      colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
-    },
-    {id:7,
-      image: "https://via.placeholder.com/300x400?text=7",
-      title: "Graphic Design",
-      desc: "English Department",
-      price: "$6.48",
-      oldPrice: "$16.48",
-      colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
-    },
-    {id:8,
-      image: "https://via.placeholder.com/300x400?text=8",
-      title: "Graphic Design",
-      desc: "English Department",
-      price: "$6.48",
-      oldPrice: "$16.48",
-      colors: ["#16a34a", "#0ea5e9", "#f97316","#000000"],
-    },
-  ];
-  
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import ProductCard from "../components/ProductCard";
+import { fetchProducts, fetchCategories } from "../store/thunks/productThunks.jsx";
+import { setFilter } from "../store/actions/productActions";
 
 const Shop = () => {
+  const dispatch = useDispatch();
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  const productList = useSelector((state) => state.product.productList);
+  const fetchState = useSelector((state) => state.product.fetchState);
+  const categories = useSelector((state) => state.product.categories);
+
+  useEffect(() => {
+    if (fetchState === "NOT_FETCHED") {
+      dispatch(fetchProducts());
+    }
+  }, [dispatch, fetchState]);
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
+
+  const handleCategoryChange = (e) => {
+    const selected = e.target.value;
+    setSelectedCategory(selected);
+    dispatch(setFilter(selected));
+    dispatch(fetchProducts()); // filtreden sonra yeniden ürünleri çek
+  };
+
+  const filteredProducts = selectedCategory
+    ? productList.filter((p) => p.category_id === Number(selectedCategory))
+    : productList;
+
   return (
     <section className="px-4 md:px-20 py-10">
-      <h2 className="text-2xl font-bold text-center mb-2">BESTSELLER PRODUCTS</h2>
-      <p className="text-center text-sm text-gray-500 mb-8">
-        Problems trying to resolve the conflict between
-      </p>
+      <h2 className="text-3xl font-bold text-center mb-4">Bestseller Products</h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        {products.map((prod, index) => (
-          <ProductCard key={index} {...prod} />
+      {/* Kategori Dropdown */}
+      <div className="mb-8 text-center">
+        <select
+          value={selectedCategory}
+          onChange={handleCategoryChange}
+          className="border border-gray-300 px-4 py-2 rounded"
+        >
+          <option value="">Tüm Kategoriler</option>
+          {categories.map((cat) => (
+            <option key={cat.id} value={cat.id}>
+              {cat.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Ürünler */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {filteredProducts.map((product) => (
+          <ProductCard key={product.id} {...product} />
         ))}
       </div>
     </section>

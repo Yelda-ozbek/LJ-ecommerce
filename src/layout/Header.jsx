@@ -19,6 +19,7 @@ const Header = () => {
           <Link to="/blog">Blog</Link>
           <Link to="/contact">Contact</Link>
           <Link to="/pages">Pages</Link>
+          <Link to="/cart">Cart</Link> {/* ✅ Cart menüde */}
         </nav>
 
         {/* Sağ - Login ve ikonlar */}
@@ -35,15 +36,17 @@ const Header = () => {
 
           {/* Desktop Login + Icons */}
           <div className="hidden md:flex items-center gap-4">
-          <Link
-  to="/signup"
-  className="text-blue-500 text-sm font-medium hover:underline"
->
-  Login / Register
-</Link>
+            <Link
+              to="/signup"
+              className="text-blue-500 text-sm font-medium hover:underline"
+            >
+              Login / Register
+            </Link>
             <div className="flex items-center gap-4 text-blue-500">
               <Search size={20} />
-              <ShoppingCart size={20} />
+              <Link to="/cart">
+                <ShoppingCart size={20} />
+              </Link>
               <User size={20} />
             </div>
           </div>
@@ -59,13 +62,9 @@ const Header = () => {
           <Link to="/blog">Blog</Link>
           <Link to="/contact">Contact</Link>
           <Link to="/pages">Pages</Link>
-          <Link to="/contact">Contact</Link>
           <Link to="/team">Team</Link>
           <Link to="/signup">Sign Up</Link>
-
-         
-
-
+          <Link to="/cart">Cart</Link>
         </div>
       )}
     </header>
