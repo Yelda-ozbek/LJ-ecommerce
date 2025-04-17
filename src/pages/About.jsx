@@ -1,3 +1,5 @@
+import hakkimizdaImage from "../assets/hakkimizda.jpg";
+
 const About = () => {
     return (
       <section className="px-4 md:px-20 py-10 max-w-6xl mx-auto">
@@ -5,7 +7,7 @@ const About = () => {
           {/* Sol: Görsel */}
           <div className="w-full md:w-1/2">
             <img
-              src="https://via.placeholder.com/500x400"
+              src={hakkimizdaImage}
               alt="about us"
               className="w-full rounded-lg shadow"
             />
@@ -15,11 +17,12 @@ const About = () => {
           <div className="w-full md:w-1/2 space-y-4 text-center md:text-left">
             <h2 className="text-3xl font-bold text-gray-800">About Us</h2>
             <p className="text-gray-600">
-              We are a passionate team of developers, designers, and creators building the future of ecommerce experiences. 
+            At LJ, we believe that fashion is more than just clothing—it's a lifestyle.  
+Our mission is to empower individuals with timeless designs, modern silhouettes, and premium quality.  
+From everyday essentials to bold statement pieces, LJ brings elegance and confidence to every wardrobe.
+
             </p>
-            <p className="text-gray-600">
-              Our mission is to deliver modern, responsive, and engaging UI that connects brands with their customers in the most delightful way.
-            </p>
+            
           </div>
         </div>
       </section>

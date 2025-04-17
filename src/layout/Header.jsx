@@ -1,9 +1,21 @@
 import React, { useState } from "react";
 import { ShoppingCart, User, Search, Menu, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import Gravatar from "react-gravatar";
+import { logout } from "../store/actions/clientActions";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const user = useSelector((state) => state.client.user);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem("token");
+    history.push("/"); // anasayfaya yönlendir
+  };
 
   return (
     <header className="w-full border-b border-gray-100">
@@ -19,7 +31,7 @@ const Header = () => {
           <Link to="/blog">Blog</Link>
           <Link to="/contact">Contact</Link>
           <Link to="/pages">Pages</Link>
-          <Link to="/cart">Cart</Link> {/* ✅ Cart menüde */}
+          <Link to="/cart">Cart</Link>
         </nav>
 
         {/* Sağ - Login ve ikonlar */}
@@ -36,18 +48,38 @@ const Header = () => {
 
           {/* Desktop Login + Icons */}
           <div className="hidden md:flex items-center gap-4">
-            <Link
-              to="/signup"
-              className="text-blue-500 text-sm font-medium hover:underline"
-            >
-              Login / Register
-            </Link>
+            {user?.email ? (
+              <>
+                <div className="flex items-center gap-2">
+                  <Gravatar email={user.email} className="rounded-full" size={32} />
+                  <span className="text-sm font-medium">{user.name || "User"}</span>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="text-sm text-red-500 hover:underline"
+                >
+                  Çıkış Yap
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/signup"
+                className="text-blue-500 text-sm font-medium hover:underline"
+              >
+                Login / Register
+              </Link>
+            )}
+
             <div className="flex items-center gap-4 text-blue-500">
+              <Link to="/shop">
               <Search size={20} />
+              </Link>
               <Link to="/cart">
                 <ShoppingCart size={20} />
               </Link>
+              <Link to= "/login">
               <User size={20} />
+              </Link>
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 // src/store/thunks/productThunks.jsx
 
 import axiosInstance from "../../api/axiosInstance";
+
 import {
   setProductList,
   setTotal,
@@ -25,6 +26,7 @@ export const fetchCategories = () => async (dispatch) => {
   try {
     const res = await axiosInstance.get("/categories");
     dispatch(setCategories(res.data));
+
   } catch (error) {
     console.error("Kategoriler çekilemedi:", error);
   }

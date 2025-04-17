@@ -17,4 +17,8 @@ export const setUser = (user) => ({
     type: "SET_LANGUAGE",
     payload: language,
   });
+  export const logout = () => ({
+    type: "LOGOUT",
+  });
+  
   
