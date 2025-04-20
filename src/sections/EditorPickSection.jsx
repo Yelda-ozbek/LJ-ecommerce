@@ -1,5 +1,8 @@
 import EditorPickCard from "../components/EditorPickCard";
-
+import yelye from "../assets/yelj.jpeg";
+import men from "../assets/men.jpeg";
+import acces from "../assets/accesss.jpeg";
+import kids from "../assets/kids.jpeg";
 const EditorPickSection = () => {
   return (
     <section className="px-4 md:px-20 py-10">
@@ -13,7 +16,7 @@ const EditorPickSection = () => {
         <div className="md:col-span-1">
           <EditorPickCard
             title="MEN"
-            image="https://via.placeholder.com/400x500?text=Men"
+            image={men}
           />
         </div>
 
@@ -21,7 +24,7 @@ const EditorPickSection = () => {
         <div className="md:col-span-1">
           <EditorPickCard
             title="WOMEN"
-            image="https://via.placeholder.com/400x500?text=Women"
+            image={yelye}
           />
         </div>
 
@@ -29,11 +32,11 @@ const EditorPickSection = () => {
         <div className="md:col-span-2 grid grid-rows-2 gap-6">
           <EditorPickCard
             title="ACCESSORIES"
-            image="https://via.placeholder.com/400x240?text=Accessories"
+            image={acces}
           />
           <EditorPickCard
             title="KIDS"
-            image="https://via.placeholder.com/400x240?text=Kids"
+            image={kids}
           />
         </div>
       </div>

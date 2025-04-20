@@ -21,7 +21,9 @@ const Signup = () => {
 
   // Store'dan seçili rolü bul
   const selectedRole = roles.find((r) => String(r.id) === String(selectedRoleId));
-  const isStore = selectedRole?.name?.toLowerCase() === "mağaza";
+const isStore = selectedRole?.code === "store";
+const isAdmin = selectedRole?.code === "admin";
+const isCustomer = selectedRole?.code === "customer";
 
   // Roller sadece gerekliyse getir
   useEffect(() => {

@@ -2,6 +2,8 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { useState, useEffect } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import yelday from "../assets/yelda.jpeg";
+import yely from "../assets/yelda2.jpeg";
 
 const sliderData = [
   {
@@ -9,7 +11,7 @@ const sliderData = [
     title: "NEW COLLECTION",
     subtitle: "SUMMER 2025",
     desc: "We know how large objects will act, but things on a small scale.",
-    image: "https://via.placeholder.com/400x400?text=Hero+1",
+    image: yelday,
     bg: "bg-cyan-500",
     buttonText: "SHOP NOW",
   },
@@ -18,12 +20,11 @@ const sliderData = [
     title: "Vita Classic Product",
     subtitle: "SUMMER 2020",
     desc: "We know how large objects will act, We know how are objects will act, We know",
-    image: "https://via.placeholder.com/400x400?text=Hero+2",
-    bg: "bg-customGreen", // özel tanımlı renk
+    image: yely,
+    bg: "bg-customGreen",
     price: "$16.48",
     buttonText: "ADD TO CART",
   }
-  
 ];
 
 const HomeSlider = () => {
@@ -52,10 +53,10 @@ const HomeSlider = () => {
         {sliderData.map((slide) => (
           <div
             key={slide.id}
-            className={`keen-slider__slide flex flex-col md:flex-row items-center justify-between ${slide.bg} px-6 md:px-20 py-10`}
+            className={`keen-slider__slide flex flex-col md:flex-row items-center justify-between ${slide.bg} px-0 md:px-20 py-10`}
           >
             {/* Sol Yazılar */}
-            <div className="text-white max-w-md text-center md:text-left">
+            <div className="text-white max-w-md text-center md:text-left px-4 md:px-0">
               <p className="text-sm tracking-wider mb-2">{slide.subtitle}</p>
               <h2 className="text-4xl font-bold mb-4">{slide.title}</h2>
               <p className="text-sm mb-4">{slide.desc}</p>
@@ -70,13 +71,14 @@ const HomeSlider = () => {
             </div>
 
             {/* Sağ Görsel */}
-            <div className="mt-6 md:mt-0 w-full md:w-[400px]">
-              <img
-                src={slide.image}
-                alt={slide.title}
-                className="w-full rounded-xl shadow-lg"
-              />
-            </div>
+            <div className="mt-6 md:mt-0 w-full md:w-[400px] flex justify-center items-center">
+  <img
+    src={slide.image}
+    alt={slide.title}
+    className="w-full max-w-[300px] md:max-w-full h-auto object-contain md:object-cover rounded-xl shadow-lg"
+  />
+</div>
+
           </div>
         ))}
       </div>

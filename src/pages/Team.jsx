@@ -1,13 +1,15 @@
+import yeldaImage from "../assets/yel.jpeg";
+import emreImage from "../assets/emre.jpeg"
 const teamMembers = [
     {
       name: "Emre Şahiner",
       role: "Project Manager",
-      //image: "https://media.licdn.com/dms/image/D4D03AQG5Z5Jdnbu9FA/profile-displayphoto-shrink_800_800/0/1697463454859?e=1719446400&v=beta&t=JxeBy1GZDWVEZutSAYwiMMdAh7pA5Rfw6dQ5tv3AYr8"
+      image:emreImage,
     },
     {
       name: "Yelda Özbek",
       role: "Full Stack Developer",
-     // image: "https://avatars.githubusercontent.com/u/12345678?v=4" // 
+      image: yeldaImage,
     },
  
   ];
