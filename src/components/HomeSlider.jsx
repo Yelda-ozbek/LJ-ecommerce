@@ -2,8 +2,6 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { useState, useEffect } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import yelday from "../assets/yelda.jpeg";
-import yely from "../assets/yelda2.jpeg";
 
 const sliderData = [
   {
@@ -11,7 +9,7 @@ const sliderData = [
     title: "NEW COLLECTION",
     subtitle: "SUMMER 2025",
     desc: "We know how large objects will act, but things on a small scale.",
-    image: yelday,
+    image: "/assets/yelda.jpeg", // ✔️ string path
     bg: "bg-cyan-500",
     buttonText: "SHOP NOW",
   },
@@ -20,11 +18,11 @@ const sliderData = [
     title: "Vita Classic Product",
     subtitle: "SUMMER 2020",
     desc: "We know how large objects will act, We know how are objects will act, We know",
-    image: yely,
+    image: "/assets/yelda2.jpeg", // ✔️ string path
     bg: "bg-customGreen",
     price: "$16.48",
     buttonText: "ADD TO CART",
-  }
+  },
 ];
 
 const HomeSlider = () => {
@@ -72,13 +70,12 @@ const HomeSlider = () => {
 
             {/* Sağ Görsel */}
             <div className="mt-6 md:mt-0 w-full md:w-[400px] flex justify-center items-center">
-  <img
-    src={slide.image}
-    alt={slide.title}
-    className="w-full max-w-[300px] md:max-w-full h-auto object-contain md:object-cover rounded-xl shadow-lg"
-  />
-</div>
-
+              <img
+                src={slide.image}
+                alt={slide.title}
+                className="w-full max-w-[300px] md:max-w-full h-auto object-contain md:object-cover rounded-xl shadow-lg"
+              />
+            </div>
           </div>
         ))}
       </div>
