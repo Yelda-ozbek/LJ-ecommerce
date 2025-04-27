@@ -1,80 +1,20 @@
-
-
-import { useSelector, useDispatch } from "react-redux";
-import axiosInstance from "../api/axiosInstance";
+import { Link } from "react-router-dom";
 
 const CompleteOrder = () => {
-  const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart.cart);
-  const address = useSelector((state) => state.cart.address);
-  const payment = useSelector((state) => state.cart.payment);
-
-  const totalPrice = cart.reduce(
-    (sum, item) => sum + item.count * item.product.price,
-    0
-  );
-
-  const handleOrder = async () => {
-    const orderData = {
-      items: cart,
-      address,
-      payment,
-      total: totalPrice,
-    };
-
-    try {
-      // Gerçek API'ye post isteği
-      const res = await axiosInstance.post("/orders", orderData);
-      console.log("Sipariş tamamlandı:", res.data);
-
-      alert("Siparişiniz başarıyla oluşturuldu!");
-
-      // İsteğe bağlı: Sepeti temizle
-      // dispatch(setCart([]));
-    } catch (err) {
-      console.error("Sipariş sırasında hata:", err);
-      alert("Sipariş oluşturulamadı. Lütfen tekrar deneyin.");
-    }
-  };
-
   return (
-    <section className="max-w-xl mx-auto px-4 py-10">
-      <h2 className="text-2xl font-bold mb-6">Siparişi Tamamla</h2>
+    <section className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
+      <h1 className="text-3xl font-bold mb-4">Siparişiniz Başarıyla Tamamlandı! 🎉</h1>
+      <p className="text-gray-600 mb-8">
+        Sipariş bilgileriniz e-posta adresinize gönderildi. Bizi tercih ettiğiniz için teşekkürler!
+      </p>
 
-      <div className="space-y-4">
-        <div>
-          <h3 className="font-semibold">Ürünler:</h3>
-          <ul className="list-disc list-inside text-gray-700">
-            {cart.map((item) => (
-              <li key={item.product.id}>
-                {item.product.name} x {item.count} — {(item.product.price * item.count).toFixed(2)} ₺
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="font-semibold">Teslimat Adresi:</h3>
-          <p className="text-gray-700">
-            {address.fullName}, {address.address}, {address.city} {address.postalCode}, Tel: {address.phone}
-          </p>
-        </div>
-
-        <div>
-          <h3 className="font-semibold">Ödeme Bilgisi:</h3>
-          <p className="text-gray-700">Kart Sahibi: {payment.cardName}</p>
-        </div>
-
-        <div className="text-lg font-bold text-right mt-4">
-          Toplam: {totalPrice.toFixed(2)} ₺
-        </div>
-
-        <button
-          onClick={handleOrder}
-          className="w-full mt-6 bg-blue-600 text-white py-3 rounded hover:bg-blue-700"
-        >
-          Siparişi Onayla
-        </button>
+      <div className="flex gap-4">
+        <Link to="/" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded">
+          Anasayfaya Dön
+        </Link>
+        <Link to="/shop" className="bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded">
+          Alışverişe Devam Et
+        </Link>
       </div>
     </section>
   );

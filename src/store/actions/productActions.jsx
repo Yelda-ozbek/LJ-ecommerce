@@ -34,4 +34,23 @@ export const setCategories = (categories) => ({
     type: "SET_FILTER",
     payload: filter,
   });
+  export const setSort = (sort) => ({
+    type: "SET_SORT",
+    payload: sort,
+  });
+  export const setSearch = (value) => ({
+    type: "SET_SEARCH",
+    payload: value,
+  });
+
+  export const setPage = (page) => ({
+    type: "SET_PAGE",
+    payload: page,
+  });
+export const setSingleProduct = (product) => ({
+  type: "SET_SINGLE_PRODUCT",
+  payload: product,
+});
+
+
   

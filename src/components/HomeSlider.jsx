@@ -2,6 +2,7 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { useState, useEffect } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useHistory } from "react-router-dom"; // ✅ Yönlendirme için ekledik!
 
 const sliderData = [
   {
@@ -9,7 +10,7 @@ const sliderData = [
     title: "NEW COLLECTION",
     subtitle: "SUMMER 2025",
     desc: "We know how large objects will act, but things on a small scale.",
-    image: "/assets/yelda.jpeg", // ✔️ string path
+    image: "/assets/yelda.jpeg",
     bg: "bg-cyan-500",
     buttonText: "SHOP NOW",
   },
@@ -18,7 +19,7 @@ const sliderData = [
     title: "Vita Classic Product",
     subtitle: "SUMMER 2020",
     desc: "We know how large objects will act, We know how are objects will act, We know",
-    image: "/assets/yelda2.jpeg", // ✔️ string path
+    image: "/assets/a4.jpeg",
     bg: "bg-customGreen",
     price: "$16.48",
     buttonText: "ADD TO CART",
@@ -36,6 +37,8 @@ const HomeSlider = () => {
       setCurrentSlide(s.track.details.rel);
     },
   });
+
+  const history = useHistory(); // ✅ useHistory ekledik
 
   // AUTOPLAY
   useEffect(() => {
@@ -63,7 +66,16 @@ const HomeSlider = () => {
                 <p className="text-lg font-semibold mb-2">{slide.price}</p>
               )}
 
-              <button className="bg-green-500 text-white px-6 py-2 text-sm font-semibold hover:bg-green-600 transition">
+              <button
+                onClick={() => {
+                  if (slide.buttonText === "SHOP NOW") {
+                    history.push("/shop"); // ✅ SHOP NOW tıklanınca /shop
+                  } else if (slide.buttonText === "ADD TO CART") {
+                    history.push("/cart"); // ✅ ADD TO CART tıklanınca /cart
+                  }
+                }}
+                className="bg-green-500 text-white px-6 py-2 text-sm font-semibold hover:bg-green-600 transition"
+              >
                 {slide.buttonText}
               </button>
             </div>

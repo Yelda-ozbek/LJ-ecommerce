@@ -1,16 +1,18 @@
-import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setCart } from "../store/actions/cartActions";
+import { fetchProductById } from "../store/thunks/productThunks"; // 🔥 bunu ekliyoruz
 
 const ProductDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const history = useHistory();
 
-  const productList = useSelector((state) => state.product.productList);
+  const product = useSelector((state) => state.product.singleProduct); // 🔥 artık buradan alıyoruz
   const cart = useSelector((state) => state.cart.cart);
 
-  const product = productList.find((p) => String(p.id) === String(id));
-
+  // 🛒 Sepete ekleme işlemi
   const addToCart = () => {
     const existingItem = cart.find((item) => item.product.id === product.id);
 
@@ -26,8 +28,17 @@ const ProductDetail = () => {
     }
 
     dispatch(setCart(updatedCart));
+    history.push("/cart");
   };
 
+  // ✅ Ürün detayını API'den çek
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchProductById(id));
+    }
+  }, [dispatch, id]);
+
+  // Ürün yüklenmedi ise
   if (!product) {
     return (
       <div className="px-4 py-10 text-center text-gray-500">
@@ -39,6 +50,7 @@ const ProductDetail = () => {
   return (
     <section className="px-4 md:px-20 py-10">
       <div className="flex flex-col md:flex-row gap-10">
+        {/* Ürün Görseli */}
         <div className="w-full md:w-1/2">
           <img
             src={product.images?.[0]?.url || "http://via.placeholder.com/400"}
@@ -47,12 +59,13 @@ const ProductDetail = () => {
           />
         </div>
 
+        {/* Ürün Bilgileri */}
         <div className="w-full md:w-1/2">
           <h1 className="text-2xl font-bold text-gray-800 mb-1">{product.name}</h1>
           <p className="text-sm text-gray-500 mb-4">{product.description}</p>
 
           <div className="text-blue-600 text-xl font-bold mb-6">
-            {product.price.toFixed(2)} ₺
+            {product.price?.toFixed(2)} ₺
           </div>
 
           <button

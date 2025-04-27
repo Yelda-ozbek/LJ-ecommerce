@@ -29,6 +29,12 @@ export const setCart = (cartItems) => ({
   export const clearCart = () => ({
     type: "CLEAR_CART",
   });
+  export const addToCart = (item) => ({
+    type: "ADD_TO_CART",
+    payload: item,
+  });
+  
+
   
   
   

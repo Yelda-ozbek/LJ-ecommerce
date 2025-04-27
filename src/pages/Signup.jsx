@@ -1,38 +1,33 @@
+// src/pages/Signup.jsx
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import axiosInstance from "../api/axiosInstance";
-import { getRoles } from "../store/thunks/clientThunks";
+import { useHistory } from "react-router-dom";
 import { setUser } from "../store/actions/clientActions";
+import { getRoles } from "../store/thunks/clientThunks";
+import { useEffect } from "react";
+import axiosInstance from "../api/axiosInstance";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const dispatch = useDispatch();
-
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setValue,
-    formState: { errors, isSubmitting },
-  } = useForm();
-
+  const history = useHistory();
   const roles = useSelector((state) => state.client.roles);
+
+  const { register, handleSubmit, watch, setValue, formState: { errors, isSubmitting } } = useForm();
+
   const selectedRoleId = watch("role_id");
 
-  // Store'dan seçili rolü bul
   const selectedRole = roles.find((r) => String(r.id) === String(selectedRoleId));
-const isStore = selectedRole?.code === "store";
-const isAdmin = selectedRole?.code === "admin";
-const isCustomer = selectedRole?.code === "customer";
+  const isStore = selectedRole?.code === "store";
 
-  // Roller sadece gerekliyse getir
+  // Roller yüklenmezse çek
   useEffect(() => {
     if (!roles.length) {
       dispatch(getRoles());
     }
   }, [dispatch, roles.length]);
 
-  // "müşteri" rolü default gelsin
+  // Başlangıçta müşteri rolünü seç
   useEffect(() => {
     const customer = roles.find((r) => r.name?.toLowerCase() === "müşteri");
     if (customer) {
@@ -42,28 +37,45 @@ const isCustomer = selectedRole?.code === "customer";
 
   const onSubmit = async (data) => {
     try {
-      const { passwordConfirm, ...formData } = data; // passwordConfirm backend'e gönderilmez
-      const response = await axiosInstance.post("/signup", formData);
+      const { passwordConfirm, ...formData } = data;
 
-      // Redux'a user'ı kaydet
-      dispatch(setUser(response.data));
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        role_id: formData.role_id,
+      };
 
-      alert("You need to click link in email to activate your account!");
-      window.history.back();
-    } catch (err) {
-      console.error("Kayıt sırasında hata:", err.response?.data || err.message);
-      alert("Kayıt başarısız. Lütfen bilgilerinizi kontrol edin.");
+      // Eğer Store ise mağaza bilgilerini ekle
+      if (isStore) {
+        payload.store = {
+          name: formData.storeName,
+          phone: formData.storePhone,
+          tax_no: formData.storeTaxNo,
+          bank_account: formData.storeBankAccount,
+        };
+      }
+
+      const res = await axiosInstance.post("/signup", payload);
+
+      // Başarılı kayıt olunca user'ı kaydetme (çünkü aktifleşmesi gerekiyor)
+      toast.warn("Hesabınızı aktifleştirmek için emailinizi kontrol edin!");
+      history.push("/login");
+
+    } catch (error) {
+      console.error("Kayıt hatası:", error.response?.data || error.message);
+      toast.error("Kayıt başarısız. Bilgileri kontrol edin!");
     }
   };
 
   return (
     <section className="max-w-md mx-auto px-4 py-10">
-      <h2 className="text-2xl font-bold text-center mb-6">Signup</h2>
+      <h2 className="text-2xl font-bold text-center mb-6">Kaydol</h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         {/* Name */}
         <div>
-          <label className="block mb-1">Name</label>
+          <label className="block mb-1">Ad Soyad</label>
           <input
             type="text"
             {...register("name", { required: true, minLength: 3 })}
@@ -78,7 +90,7 @@ const isCustomer = selectedRole?.code === "customer";
           <input
             type="email"
             {...register("email", {
-              required: "Email is required",
+              required: "Email gerekli",
               pattern: {
                 value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
                 message: "Geçerli bir email girin",
@@ -91,14 +103,14 @@ const isCustomer = selectedRole?.code === "customer";
 
         {/* Password */}
         <div>
-          <label className="block mb-1">Password</label>
+          <label className="block mb-1">Şifre</label>
           <input
             type="password"
             {...register("password", {
               required: "Şifre gerekli",
               pattern: {
                 value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/,
-                message: "En az 8 karakter, büyük/küçük harf, rakam ve özel karakter içermeli",
+                message: "8 karakter, büyük/küçük harf, rakam ve özel karakter olmalı",
               },
             })}
             className="w-full border p-2 rounded"
@@ -106,29 +118,26 @@ const isCustomer = selectedRole?.code === "customer";
           {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
         </div>
 
-        {/* Confirm Password */}
+        {/* Password Confirm */}
         <div>
-          <label className="block mb-1">Confirm Password</label>
+          <label className="block mb-1">Şifre Tekrar</label>
           <input
             type="password"
             {...register("passwordConfirm", {
-              required: "Lütfen şifreyi tekrar girin",
+              required: "Şifreyi tekrar girin",
               validate: (value) => value === watch("password") || "Şifreler eşleşmiyor",
             })}
             className="w-full border p-2 rounded"
           />
-          {errors.passwordConfirm && (
-            <p className="text-red-500 text-sm">{errors.passwordConfirm.message}</p>
-          )}
+          {errors.passwordConfirm && <p className="text-red-500 text-sm">{errors.passwordConfirm.message}</p>}
         </div>
 
         {/* Role */}
         <div>
-          <label className="block mb-1">Role</label>
+          <label className="block mb-1">Rol Seçimi</label>
           <select
-            {...register("role_id", { required: "Rol seçilmeli" })}
+            {...register("role_id", { required: "Rol seçimi gerekli" })}
             className="w-full border p-2 rounded"
-            value={watch("role_id")}
           >
             <option value="">Seçiniz</option>
             {roles.map((role) => (
@@ -140,78 +149,47 @@ const isCustomer = selectedRole?.code === "customer";
           {errors.role_id && <p className="text-red-500 text-sm">{errors.role_id.message}</p>}
         </div>
 
-        {/* Mağaza Bilgileri */}
+        {/* Eğer mağaza ise ekstra alanlar */}
         {isStore && (
           <>
             <div>
-              <label className="block mb-1">Store Name</label>
+              <label className="block mb-1">Mağaza Adı</label>
               <input
                 type="text"
-                {...register("store.name", {
-                  required: "Mağaza adı gerekli",
-                  minLength: { value: 3, message: "En az 3 karakter" },
-                })}
+                {...register("storeName", { required: "Mağaza adı gerekli", minLength: 3 })}
                 className="w-full border p-2 rounded"
               />
-              {errors.store?.name && (
-                <p className="text-red-500 text-sm">{errors.store.name.message}</p>
-              )}
+              {errors.storeName && <p className="text-red-500 text-sm">{errors.storeName.message}</p>}
             </div>
 
             <div>
-              <label className="block mb-1">Store Phone</label>
+              <label className="block mb-1">Mağaza Telefon</label>
               <input
-                type="tel"
-                {...register("store.phone", {
-                  required: "Telefon gerekli",
-                  pattern: {
-                    value: /^(\+90|0)?5\d{9}$/,
-                    message: "Geçerli bir Türkiye telefonu girin",
-                  },
-                })}
+                type="text"
+                {...register("storePhone", { required: "Telefon gerekli", pattern: /^(\+90|0)?5\d{9}$/ })}
                 className="w-full border p-2 rounded"
               />
-              {errors.store?.phone && (
-                <p className="text-red-500 text-sm">{errors.store.phone.message}</p>
-              )}
+              {errors.storePhone && <p className="text-red-500 text-sm">Geçerli Türkiye telefonu girin</p>}
             </div>
 
             <div>
-              <label className="block mb-1">Tax ID</label>
+              <label className="block mb-1">Vergi Numarası</label>
               <input
                 type="text"
-                {...register("store.tax_no", {
-                  required: "Vergi no gerekli",
-                  pattern: {
-                    value: /^T\d{4}V\d{6}$/,
-                    message: "TXXXXVXXXXXX formatında girin",
-                  },
-                })}
+                {...register("storeTaxNo", { required: "Vergi numarası gerekli", pattern: /^T\d{4}V\d{6}$/ })}
                 className="w-full border p-2 rounded"
               />
-              {errors.store?.tax_no && (
-                <p className="text-red-500 text-sm">{errors.store.tax_no.message}</p>
-              )}
+              {errors.storeTaxNo && <p className="text-red-500 text-sm">TXXXXVXXXXXX formatında girin</p>}
             </div>
 
             <div>
-              <label className="block mb-1">Store IBAN</label>
+              <label className="block mb-1">IBAN</label>
               <input
                 type="text"
-                {...register("store.bank_account", {
-                  required: "IBAN gerekli",
-                  pattern: {
-                    value: /^TR\d{2}\d{4}\d{4}\d{4}\d{4}\d{2}$/,
-                    message: "Geçerli TR IBAN girin",
-                  },
-                })}
+                {...register("storeBankAccount", { required: "IBAN gerekli", pattern: /^TR\d{2}\d{4}\d{4}\d{4}\d{4}\d{2}$/ })}
                 className="w-full border p-2 rounded"
               />
-              {errors.store?.bank_account && (
-                <p className="text-red-500 text-sm">
-                  {errors.store.bank_account.message}
-                </p>
-              )}
+              {errors.storeBankAccount && <p className="text-red-500 text-sm">Geçerli TR IBAN girin</p>}
             </div>
           </>
         )}
@@ -219,7 +197,7 @@ const isCustomer = selectedRole?.code === "customer";
         <button
           type="submit"
           disabled={isSubmitting}
-          className="bg-blue-600 text-white px-6 py-2 rounded disabled:opacity-50"
+          className="bg-blue-600 text-white w-full py-2 rounded hover:bg-blue-700 disabled:opacity-50"
         >
           {isSubmitting ? "Gönderiliyor..." : "Kaydol"}
         </button>

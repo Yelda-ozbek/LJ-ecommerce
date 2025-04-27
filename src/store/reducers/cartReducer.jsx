@@ -48,6 +48,27 @@ const initialState = {
                   payment: {},
                   address: {},
                 };
+                case "ADD_TO_CART":
+  const existing = state.cart.find(
+    (c) => c.product.id === action.payload.product.id
+  );
+
+  if (existing) {
+    return {
+      ...state,
+      cart: state.cart.map((c) =>
+        c.product.id === action.payload.product.id
+          ? { ...c, count: c.count + 1 }
+          : c
+      ),
+    };
+  }
+
+  return {
+    ...state,
+    cart: [...state.cart, action.payload],
+  };
+
       default:
         return state;
     }
