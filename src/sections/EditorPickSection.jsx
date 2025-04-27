@@ -54,7 +54,7 @@ const EditorPickSection = () => {
           <Link to="/shop" className="block">
             <div className="relative w-full aspect-[4/3] overflow-hidden rounded-lg shadow hover:shadow-lg transition">
               <img
-                src="/assets/accesss.jpeg"
+                src="/assets/a6.jpeg"
                 alt="Accessories"
                 className="absolute inset-0 w-full h-full object-cover"
               />
@@ -66,17 +66,18 @@ const EditorPickSection = () => {
 
           {/* KIDS */}
           <Link to="/shop" className="block">
-            <div className="relative w-full aspect-[4/3] overflow-hidden rounded-lg shadow hover:shadow-lg transition">
-              <img
-                src="/assets/kids.jpeg"
-                alt="Kids"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              <span className="absolute bottom-4 left-4 bg-white px-3 py-1 font-semibold text-black text-sm rounded">
-                KIDS
-              </span>
-            </div>
-          </Link>
+  <div className="relative w-full aspect-[4/3] overflow-hidden rounded-lg shadow hover:shadow-lg transition">
+    <img
+      src="/assets/a5.jpeg"
+      alt="Kids"
+      className="absolute inset-0 w-full h-full object-cover rounded-lg transition duration-300 ease-in-out"
+    />
+    <span className="absolute bottom-4 left-4 bg-white px-3 py-1 font-semibold text-black text-sm rounded">
+      KIDS
+    </span>
+  </div>
+</Link>
+
 
         </div>
       </div>
